@@ -1,0 +1,4 @@
+rootProject.name = 'assert-rx'
+
+include ':library'
+include ':samples'

@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+compileJava.setSourceCompatibility('1.8')
+compileJava.setTargetCompatibility('1.8')
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':library')
+
+    testCompile 'junit:junit:4.12'
+}
