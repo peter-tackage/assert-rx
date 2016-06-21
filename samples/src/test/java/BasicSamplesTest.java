@@ -10,7 +10,7 @@ import static com.petertackage.assertrx.Assertions.assertThat;
 
 /**
  * Some more real-world style test samples.
- *
+ * <p/>
  * Remove @Ignore annotations to experiment.
  */
 public class BasicSamplesTest {
@@ -52,8 +52,8 @@ public class BasicSamplesTest {
     }
 
     @Test
-    @Ignore
-    public void testFiltering_thisIsDeliberatelyFailingToShowErrorMessage() {
+    @Ignore("This test is intentionally failing to demonstrate the behavior - ignored so that the build passes")
+    public void testFilteringEmitsUnexpectedValue() {
         String value = "catalog";
         String value2 = "caterpillar";
         String value3 = "dog";
@@ -75,8 +75,8 @@ public class BasicSamplesTest {
     }
 
     @Test
-    @Ignore
-    public void testFilteringCausesError_thisIsDeliberatelyFailingToShowErrorMessage() {
+    @Ignore("This test is intentionally failing to demonstrate the behavior - ignored so that the build passes")
+    public void testFilteringErrors() {
         String value = "catalog";
         Observable<String> erroringFilteringObservable = Observable.just(value).
                 concatWith(Observable.<String>error(new NullPointerException()));
@@ -91,8 +91,8 @@ public class BasicSamplesTest {
     }
 
     @Test
-    @Ignore
-    public void testNever_thisIsDeliberatelyFailingToShowErrorMessage() {
+    @Ignore("This test is intentionally failing to demonstrate the behavior - ignored so that the build passes")
+    public void testNeverErrors() {
         Observable<String> empty = Observable.never();
 
         TestSubscriber<String> ts = TestSubscriber.create();
