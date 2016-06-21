@@ -52,7 +52,7 @@ public class BasicSamplesTest {
     }
 
     @Test
-    @Ignore("This test is intentionally failing to demonstrate the behavior - ignored so that the build passes")
+    @Ignore("This test is intentionally failing - ignored so that the build passes")
     public void testFilteringEmitsUnexpectedValue() {
         String value = "catalog";
         String value2 = "caterpillar";
@@ -75,7 +75,7 @@ public class BasicSamplesTest {
     }
 
     @Test
-    @Ignore("This test is intentionally failing to demonstrate the behavior - ignored so that the build passes")
+    @Ignore("This test is intentionally failing - ignored so that the build passes")
     public void testFilteringErrors() {
         String value = "catalog";
         Observable<String> erroringFilteringObservable = Observable.just(value).
@@ -91,7 +91,7 @@ public class BasicSamplesTest {
     }
 
     @Test
-    @Ignore("This test is intentionally failing to demonstrate the behavior - ignored so that the build passes")
+    @Ignore("This test is intentionally failing - ignored so that the build passes")
     public void testNeverErrors() {
         Observable<String> empty = Observable.never();
 
