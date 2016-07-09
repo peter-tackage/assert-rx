@@ -95,8 +95,9 @@ public class TestSubscriberAssertTest {
     public void testHasReceivedValues_invokesTestSubscriberAssertReceivedOnNextValue_whenMultiple() {
         List<Integer> values = Arrays.asList(1, 2, 3);
         Observable<Integer> oi = Observable.from(values);
-        //noinspection unchecked
-        TestSubscriber<Integer> ts = mock(TestSubscriber.class);
+        // Requires spy as decoration of TestSubscriber as Subscriber accesses TestSubscriber instance internals
+        // which are not initialized when using a mock.
+        TestSubscriber<Integer> ts = spy(new TestSubscriber<Integer>());
         oi.subscribe(ts);
 
         new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedValues(values);
@@ -121,13 +122,14 @@ public class TestSubscriberAssertTest {
     public void testHasValueCount_invokesTestSubscriberAssertValueCount() {
         List<Integer> values = Arrays.asList(1, 2, 3);
         Observable<Integer> oi = Observable.from(values);
-        //noinspection unchecked
-        TestSubscriber<Integer> ts = mock(TestSubscriber.class);
+        // Requires spy as decoration of TestSubscriber as Subscriber accesses TestSubscriber instance internals
+        // which are not initialized when using a mock.
+        TestSubscriber<Integer> ts = spy(new TestSubscriber<Integer>());
         oi.subscribe(ts);
 
         new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasValueCount(values.size());
 
-        verify(ts).assertValueCount(values.size());
+        verify(ts).assertValueCount(eq(values.size()));
     }
 
     @Test
