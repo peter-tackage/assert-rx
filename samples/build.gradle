@@ -5,10 +5,10 @@ compileJava.setTargetCompatibility('1.8')
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    compile project(':library')
-
+    compile project(':')
     testCompile 'junit:junit:4.12'
 }
