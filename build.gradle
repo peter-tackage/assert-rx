@@ -1,5 +1,5 @@
 group 'com.petertackage'
-version '0.9.3-beta'
+version '0.9.4-beta'
 
 apply plugin: 'java'
 
@@ -14,6 +14,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.0.52-beta'
 
-    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxjava:1.1.7'
     compile 'org.assertj:assertj-core:1.7.1'
 }
