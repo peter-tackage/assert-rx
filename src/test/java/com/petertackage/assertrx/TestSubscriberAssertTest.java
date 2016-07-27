@@ -314,18 +314,8 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasErrorWhich_asserts_whenErrorEventsAreNull() {
-        expectAssertionErrorWithMessage(String.format("Expected a single onError event, but was: <%s>", null));
-        //noinspection unchecked
-        TestSubscriber<Object> ts = mock(TestSubscriber.class);
-        when(ts.getOnErrorEvents()).thenReturn(null);
-
-        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasErrorWhich();
-    }
-
-    @Test
     public void testHasErrorWhich_asserts_whenErrorEventListIsEmpty() {
-        List<Throwable> values = Collections.<Throwable>emptyList();
+        List<Throwable> values = Collections.emptyList();
         expectAssertionErrorWithMessage(String.format("Expected a single onError event, but was: <%s>", values));
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
