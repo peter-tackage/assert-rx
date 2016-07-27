@@ -1,5 +1,5 @@
 group 'com.petertackage'
-version '0.9.4-beta'
+version '0.9.5-beta'
 
 apply plugin: 'java'
 
