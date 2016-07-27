@@ -38,7 +38,7 @@ public class TestSubscriberAssertTest {
     // Delegated tests - only test that the appropriate TestSubscriber assert method is invoked.
 
     @Test
-    public void testAfterTerminalEvent_invokesTestSubscriberAwaitTerminalEvent() {
+    public void afterTerminalEvent_invokesTestSubscriberAwaitTerminalEvent() {
         //noinspection unchecked
         TestSubscriber<Integer> ts = mock(TestSubscriber.class);
 
@@ -48,7 +48,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testAfterTerminalEventWithTimeout_invokesTestSubscriberAwaitTerminalEvent() {
+    public void afterTerminalEventWithTimeout_invokesTestSubscriberAwaitTerminalEvent() {
         //noinspection unchecked
         TestSubscriber<Integer> ts = mock(TestSubscriber.class);
         long timeoutValue = 5;
@@ -60,7 +60,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testAfterTerminalEventAndUnsubscribingIfTimeout_invokesTestSubscriberAwaitTerminalEvent() {
+    public void afterTerminalEventAndUnsubscribingIfTimeout_invokesTestSubscriberAwaitTerminalEvent() {
         //noinspection unchecked
         TestSubscriber<Integer> ts = mock(TestSubscriber.class);
         long timeoutValue = 5;
@@ -74,7 +74,7 @@ public class TestSubscriberAssertTest {
 
 
     @Test
-    public void testHasNoValues_invokesTestSubscribeAssertNoValues() {
+    public void hasNoValues_invokesTestSubscribeAssertNoValues() {
         //noinspection unchecked
         TestSubscriber<Integer> ts = mock(TestSubscriber.class);
 
@@ -84,7 +84,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValue_invokesTestSubscriberAssertValue() {
+    public void hasReceivedValue_invokesTestSubscriberAssertValue() {
         Integer value = 1;
         Observable<Integer> oi = Observable.just(value);
         //noinspection unchecked
@@ -97,7 +97,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValues_invokesTestSubscriberAssertReceivedOnNextValue_whenMultiple() {
+    public void hasReceivedValues_invokesTestSubscriberAssertReceivedOnNextValue_whenMultiple() {
         List<Integer> values = Arrays.asList(1, 2, 3);
         Observable<Integer> oi = Observable.from(values);
         // Requires spy as decoration of TestSubscriber as Subscriber accesses TestSubscriber instance internals
@@ -111,7 +111,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValuesVarArgs_invokesTestSubscriberAssertValues_whenMultiple() {
+    public void hasReceivedValuesVarArgs_invokesTestSubscriberAssertValues_whenMultiple() {
         Integer[] values = {1, 2, 3};
         Observable<Integer> oi = Observable.from(values);
         //noinspection unchecked
@@ -124,7 +124,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasValueCount_invokesTestSubscriberAssertValueCount() {
+    public void hasValueCount_invokesTestSubscriberAssertValueCount() {
         List<Integer> values = Arrays.asList(1, 2, 3);
         Observable<Integer> oi = Observable.from(values);
         // Requires spy as decoration of TestSubscriber as Subscriber accesses TestSubscriber instance internals
@@ -138,7 +138,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasCompleted_invokesTestSubscriberAssertCompleted() {
+    public void hasCompleted_invokesTestSubscriberAssertCompleted() {
         //noinspection unchecked
         TestSubscriber<Integer> ts = mock(TestSubscriber.class);
 
@@ -148,7 +148,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasNotCompleted_invokesTestSubscriberAssertNotCompleted() {
+    public void hasNotCompleted_invokesTestSubscriberAssertNotCompleted() {
         //noinspection unchecked
         TestSubscriber<Integer> ts = mock(TestSubscriber.class);
 
@@ -158,7 +158,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasNoErrors_invokesTestSubscriberAssertNoErrors() {
+    public void hasNoErrors_invokesTestSubscriberAssertNoErrors() {
         //noinspection unchecked
         TestSubscriber<Integer> ts = mock(TestSubscriber.class);
 
@@ -168,7 +168,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasTerminalEvent_invokesTestSubscriberAssertTerminalEvent() {
+    public void hasTerminalEvent_invokesTestSubscriberAssertTerminalEvent() {
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
 
@@ -178,7 +178,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasNoTerminalEvent_invokesTestSubscriberAssertNoTerminalEvent() {
+    public void hasNoTerminalEvent_invokesTestSubscriberAssertNoTerminalEvent() {
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
 
@@ -188,7 +188,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testIsUnsubscribed_invokesTestSubscriberAssertUnsubscribed() {
+    public void isUnsubscribed_invokesTestSubscriberAssertUnsubscribed() {
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
 
@@ -198,7 +198,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasErrorInstance_invokesTestSubscriberAssertErrorInstance() {
+    public void hasErrorInstance_invokesTestSubscriberAssertErrorInstance() {
         Throwable throwable = new Throwable();
         Observable<Object> oi = Observable.error(throwable);
         // Requires spy as decoration of TestSubscriber as Subscriber accesses TestSubscriber instance internals
@@ -212,7 +212,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasErrorClass_invokesTestSubscriberAssertErrorClass() {
+    public void hasErrorClass_invokesTestSubscriberAssertErrorClass() {
         Throwable throwable = new Throwable();
         Observable<Object> oi = Observable.error(throwable);
         // Requires spy as decoration of TestSubscriber as Subscriber accesses TestSubscriber instance internals
@@ -228,7 +228,7 @@ public class TestSubscriberAssertTest {
     // Higher Order tests - these don't use TestSubscriber assertions.
 
     @Test
-    public void testHasReceivedValues_asserts_whenSourceObservableIsEmpty() {
+    public void hasReceivedValues_asserts_whenSourceObservableIsEmpty() {
         expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.empty();
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
@@ -238,7 +238,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValues_asserts_whenSourceObservableIsError() {
+    public void hasReceivedValues_asserts_whenSourceObservableIsError() {
         expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.error(new Throwable());
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
@@ -248,7 +248,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValues_asserts_whenSourceObservableIsNever() {
+    public void hasReceivedValues_asserts_whenSourceObservableIsNever() {
         expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.never();
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
@@ -258,7 +258,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValues_doesNotAssert_whenSourceObservableEmitsOnce() {
+    public void hasReceivedValues_doesNotAssert_whenSourceObservableEmitsOnce() {
         Observable<Integer> oi = Observable.just(1);
         TestSubscriber<Integer> ts = new TestSubscriber<Integer>();
         oi.subscribe(ts);
@@ -267,7 +267,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValues_doesNotAssert_whenSourceObservableEmitsMultiple() {
+    public void hasReceivedValues_doesNotAssert_whenSourceObservableEmitsMultiple() {
         Observable<Integer> oi = Observable.just(1, 2);
         TestSubscriber<Integer> ts = new TestSubscriber<Integer>();
         oi.subscribe(ts);
@@ -276,7 +276,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValueWhich_asserts_whenOnNextEventsListIsEmpty() {
+    public void hasReceivedValueWhich_asserts_whenOnNextEventsListIsEmpty() {
         List<Object> values = Collections.emptyList();
         expectAssertionErrorWithMessage(String.format("Expected a single onNext value, but was: <%s>", values));
         //noinspection unchecked
@@ -287,7 +287,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValueWhich_asserts_whenMultipleOnNextEvents() {
+    public void hasReceivedValueWhich_asserts_whenMultipleOnNextEvents() {
         List<Object> values = Arrays.asList(new Object(), new Object());
         expectAssertionErrorWithMessage(String.format("Expected a single onNext value, but was: <%s>", values));
         //noinspection unchecked
@@ -298,7 +298,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasReceivedValueWhich_doesNotAssert_whenSingleOnNextEvent() {
+    public void hasReceivedValueWhich_doesNotAssert_whenSingleOnNextEvent() {
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
         when(ts.getOnNextEvents()).thenReturn(Collections.singletonList(new Object()));
@@ -307,7 +307,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasErrorWhich_asserts_whenErrorEventListIsEmpty() {
+    public void hasErrorWhich_asserts_whenErrorEventListIsEmpty() {
         List<Throwable> values = Collections.emptyList();
         expectAssertionErrorWithMessage(String.format("Expected a single onError event, but was: <%s>", values));
         //noinspection unchecked
@@ -318,7 +318,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasErrorWhich_asserts_whenMultipleErrorEvents() {
+    public void hasErrorWhich_asserts_whenMultipleErrorEvents() {
         List<Throwable> values = Arrays.asList(new Throwable(), new Throwable());
         expectAssertionErrorWithMessage(String.format("Expected a single onError event, but was: <%s>", values));
         //noinspection unchecked
@@ -329,7 +329,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void testHasErrorWhich_doesNotAssert_whenSingleErrorEvent() {
+    public void hasErrorWhich_doesNotAssert_whenSingleErrorEvent() {
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
         when(ts.getOnErrorEvents()).thenReturn(Collections.singletonList(new Throwable()));
