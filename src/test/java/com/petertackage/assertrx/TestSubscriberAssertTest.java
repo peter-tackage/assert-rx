@@ -237,8 +237,9 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValues();
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasReceivedValues_asserts_whenSourceObservableIsError() {
+        expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.error(new Throwable());
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
@@ -246,8 +247,9 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValues();
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasReceivedValues_asserts_whenSourceObservableIsNever() {
+        expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.never();
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
@@ -271,15 +273,6 @@ public class TestSubscriberAssertTest {
         oi.subscribe(ts);
 
         new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedValues();
-    }
-
-    @Test(expected = AssertionError.class)
-    public void testHasReceivedValueWhich_asserts_whenOnNextEventsListIsNull() {
-        //noinspection unchecked
-        TestSubscriber<Object> ts = mock(TestSubscriber.class);
-        when(ts.getOnNextEvents()).thenReturn(null);
-
-        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValueWhich();
     }
 
     @Test
