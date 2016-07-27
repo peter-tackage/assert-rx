@@ -15,7 +15,9 @@
  */
 package com.petertackage.assertrx;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Matchers;
 import rx.Observable;
 import rx.observers.TestSubscriber;
@@ -29,6 +31,9 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 public class TestSubscriberAssertTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     // Delegated tests - only test that the appropriate TestSubscriber assert method is invoked.
 
@@ -222,8 +227,9 @@ public class TestSubscriberAssertTest {
 
     // Higher Order tests - these don't use TestSubscriber assertions.
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasReceivedValues_asserts_whenSourceObservableIsEmpty() {
+        expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.empty();
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
@@ -276,20 +282,24 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValueWhich();
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasReceivedValueWhich_asserts_whenOnNextEventsListIsEmpty() {
+        List<Object> values = Collections.emptyList();
+        expectAssertionErrorWithMessage(String.format("Expected a single onNext value, but was: <%s>", values));
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
-        when(ts.getOnNextEvents()).thenReturn(Collections.emptyList());
+        when(ts.getOnNextEvents()).thenReturn(values);
 
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValueWhich();
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasReceivedValueWhich_asserts_whenMultipleOnNextEvents() {
+        List<Object> values = Arrays.asList(new Object(), new Object());
+        expectAssertionErrorWithMessage(String.format("Expected a single onNext value, but was: <%s>", values));
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
-        when(ts.getOnNextEvents()).thenReturn(Arrays.asList(new Object(), new Object()));
+        when(ts.getOnNextEvents()).thenReturn(values);
 
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValueWhich();
     }
@@ -303,8 +313,9 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValueWhich();
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasErrorWhich_asserts_whenErrorEventsAreNull() {
+        expectAssertionErrorWithMessage(String.format("Expected a single onError event, but was: <%s>", null));
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
         when(ts.getOnErrorEvents()).thenReturn(null);
@@ -312,20 +323,24 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasErrorWhich();
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasErrorWhich_asserts_whenErrorEventListIsEmpty() {
+        List<Throwable> values = Collections.<Throwable>emptyList();
+        expectAssertionErrorWithMessage(String.format("Expected a single onError event, but was: <%s>", values));
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
-        when(ts.getOnErrorEvents()).thenReturn(Collections.<Throwable>emptyList());
+        when(ts.getOnErrorEvents()).thenReturn(values);
 
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasErrorWhich();
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasErrorWhich_asserts_whenMultipleErrorEvents() {
+        List<Throwable> values = Arrays.asList(new Throwable(), new Throwable());
+        expectAssertionErrorWithMessage(String.format("Expected a single onError event, but was: <%s>", values));
         //noinspection unchecked
         TestSubscriber<Object> ts = mock(TestSubscriber.class);
-        when(ts.getOnErrorEvents()).thenReturn(Arrays.asList(new Throwable(), new Throwable()));
+        when(ts.getOnErrorEvents()).thenReturn(values);
 
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasErrorWhich();
     }
@@ -337,6 +352,11 @@ public class TestSubscriberAssertTest {
         when(ts.getOnErrorEvents()).thenReturn(Collections.singletonList(new Throwable()));
 
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasErrorWhich();
+    }
+
+    private void expectAssertionErrorWithMessage(String message) {
+        thrown.expect(AssertionError.class);
+        thrown.expectMessage(message);
     }
 
 }

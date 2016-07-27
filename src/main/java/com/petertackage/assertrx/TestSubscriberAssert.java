@@ -110,8 +110,9 @@ public final class TestSubscriberAssert<T> extends AbstractAssert<TestSubscriber
     public TestSubscriberAssert<T> hasReceivedValues() {
         isNotNull();
         List<T> actualEvents = actual.getOnNextEvents();
-        assertThat(actualEvents).isNotEmpty()
-                .overridingErrorMessage("Expected received onNext events not to be empty.");
+        assertThat(actualEvents)
+                .overridingErrorMessage("Expected received onNext events not to be empty.")
+                .isNotEmpty();
         return this;
     }
 
@@ -122,9 +123,9 @@ public final class TestSubscriberAssert<T> extends AbstractAssert<TestSubscriber
         isNotNull();
         List<T> received = actual.getOnNextEvents();
         assertThat(received)
+                .overridingErrorMessage("Expected a single onNext value, but was: <%s>.", received)
                 .isNotNull()
-                .hasSize(1)
-                .overridingErrorMessage("Expected a single onNext value, but was: <%s>.", received);
+                .hasSize(1);
         return assertThat(received.get(0));
     }
 
@@ -199,9 +200,9 @@ public final class TestSubscriberAssert<T> extends AbstractAssert<TestSubscriber
         isNotNull();
         List<? extends Throwable> received = actual.getOnErrorEvents();
         assertThat(received)
+                .overridingErrorMessage("Expected a single onError event, but was: <%s>.", received)
                 .isNotNull()
-                .hasSize(1)
-                .overridingErrorMessage("Expected a single onError event, but was: <%s>.", received);
+                .hasSize(1);
         return assertThat(received.get(0));
     }
 
