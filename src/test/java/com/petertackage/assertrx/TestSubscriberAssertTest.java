@@ -228,6 +228,61 @@ public class TestSubscriberAssertTest {
     // Higher Order tests - these don't use TestSubscriber assertions.
 
     @Test
+    public void hasReceivedFirstValue_doesNotAssert_whenEqual_andSourceObservableEmitsOnce() {
+        Object value = new Object();
+        Observable<Object> oi = Observable.just(value);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(value);
+    }
+
+    @Test
+    public void hasReceivedFirstValue_doesNotAssert_whenEqual_andSourceObservableEmitsMultiple() {
+        Object value = new Object();
+        Observable<Object> oi = Observable.just(value, new Object());
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(value);
+    }
+
+    @Test
+    public void hasReceivedFirstValue_asserts_whenNotEqual_andSourceObservableEmitsOnce() {
+        Object otherValue = new Object();
+        Object value = new Object();
+        expectAssertionErrorWithMessage(String.format("Expected first received onNext events to be: <%s>, but was: <%s>.", otherValue, value));
+        Observable<Object> oi = Observable.just(value);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(otherValue);
+    }
+
+    @Test
+    public void hasReceivedFirstValue_asserts_whenSourceObservableIsEmpty() {
+        expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
+        Observable<Object> oi = Observable.empty();
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(new Object());
+    }
+
+
+    @Test
+    public void hasReceivedFirstValue_asserts_whenNotEqual_andSourceObservableEmitsMultiple() {
+        Object otherValue = new Object();
+        Object value = new Object();
+        expectAssertionErrorWithMessage(String.format("Expected first received onNext events to be: <%s>, but was: <%s>", otherValue, value));
+        Observable<Object> oi = Observable.just(value, otherValue);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(otherValue);
+    }
+
+    @Test
     public void hasReceivedValues_asserts_whenSourceObservableIsEmpty() {
         expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.empty();
