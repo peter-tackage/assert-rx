@@ -2,6 +2,7 @@ group 'com.petertackage'
 version '0.9.5-beta'
 
 apply plugin: 'java'
+apply plugin: "jacoco"
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
@@ -17,3 +18,4 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.7'
     compile 'org.assertj:assertj-core:1.7.1'
 }
+
