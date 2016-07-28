@@ -49,11 +49,43 @@ Assert conditions for the onNext value sequence:
                   .doesNotContain(someObject);
 ```
 
+Assert that the subscriber received any single onNext value:
+
+```java
+    assertThat(ts).hasReceivedAnyValue();
+```
+
+Or assert that the subscriber has received one or more onNext values:
+
+```java
+    assertThat(ts).hasReceivedAnyValues();
+```
+
 Assert conditions for single onNext events (currently only as `Object` instances):
 
 ```java
  assertThat(ts).hasReceivedValueWhich()
                .is(notEmptyOrNull());
+```
+
+Assert the first or last received onNext values:
+
+```java
+    assertThat(ts).hasReceivedFirstValue(someObject);
+```
+
+```java
+    assertThat(ts).hasReceivedLastValue(someObject);
+```
+
+```java
+    assertThat(ts).hasReceivedFirstValueWhich()
+                  .is(notEmptyOrNull());
+```
+
+```java
+   assertThat(ts).hasReceivedLastValueWhich()
+                 .is(notEmptyOrNull());
 ```
 
 Similarly assert conditions for onError events (currently only as `Throwable` instances):
