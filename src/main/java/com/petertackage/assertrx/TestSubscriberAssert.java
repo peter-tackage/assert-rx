@@ -129,8 +129,29 @@ public final class TestSubscriberAssert<T> extends AbstractAssert<TestSubscriber
         assertThat(actualEvents)
                 .overridingErrorMessage("Expected received onNext events not to be empty.")
                 .isNotEmpty()
-                .overridingErrorMessage("Expected first received onNext events to be: <%s>, but was: <%s>.", value, actualEvents.get(0))
+                .overridingErrorMessage("Expected first received onNext event to be: <%s>, but was: <%s>.",
+                        value,
+                        actualEvents.get(0))
                 .contains(value, Index.atIndex(0));
+        return this;
+    }
+
+    /**
+     * Passes when the {@link TestSubscriber}'s last received event is equal to the provided value.
+     *
+     * @param value the expected last received onNext value.
+     * @return this {@link TestSubscriberAssert}
+     */
+    public TestSubscriberAssert<T> hasReceivedLastValue(final T value) {
+        isNotNull();
+        List<T> actualEvents = actual.getOnNextEvents();
+        assertThat(actualEvents)
+                .overridingErrorMessage("Expected received onNext events not to be empty.")
+                .isNotEmpty()
+                .overridingErrorMessage("Expected last received onNext event to be: <%s>, but was: <%s>.",
+                        value,
+                        actualEvents.get(actualEvents.size() - 1))
+                .contains(value, Index.atIndex(actualEvents.size() - 1));
         return this;
     }
 

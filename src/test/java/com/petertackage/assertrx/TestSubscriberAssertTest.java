@@ -36,7 +36,7 @@ public class TestSubscriberAssertTest {
     // Higher Order tests - these don't use TestSubscriber assertions.
 
     @Test
-    public void hasReceivedFirstValue_doesNotAssert_whenEqual_andSourceObservableEmitsOnce() {
+    public void hasReceivedFirstValue_doesNotAssert_whenSourceObservableEmitsOnceEqual() {
         Object value = new Object();
         Observable<Object> oi = Observable.just(value);
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
@@ -46,7 +46,7 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void hasReceivedFirstValue_doesNotAssert_whenEqual_andSourceObservableEmitsMultiple() {
+    public void hasReceivedFirstValue_doesNotAssert_whenSourceObservableEmitsMultipleFirstEqual() {
         Object value = new Object();
         Observable<Object> oi = Observable.just(value, new Object());
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
@@ -56,10 +56,10 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void hasReceivedFirstValue_asserts_whenNotEqual_andSourceObservableEmitsMultipleAndOtherValuesMatches() {
+    public void hasReceivedFirstValue_asserts_whenSourceObservableEmitsMultipleFirstNotEqualAndOtherValueEquals() {
         Object value = new Object();
         Object otherValue = new Object();
-        expectAssertionErrorWithMessage(String.format("Expected first received onNext events to be: <%s>, but was: <%s>.", otherValue, value));
+        expectAssertionErrorWithMessage(String.format("Expected first received onNext event to be: <%s>, but was: <%s>.", otherValue, value));
         Observable<Object> oi = Observable.just(value, otherValue);
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
@@ -68,10 +68,10 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
-    public void hasReceivedFirstValue_asserts_whenNotEqual_andSourceObservableEmitsOnce() {
+    public void hasReceivedFirstValue_asserts_whenSourceObservableEmitsOnceNotEqual() {
         Object otherValue = new Object();
         Object value = new Object();
-        expectAssertionErrorWithMessage(String.format("Expected first received onNext events to be: <%s>, but was: <%s>.", otherValue, value));
+        expectAssertionErrorWithMessage(String.format("Expected first received onNext event to be: <%s>, but was: <%s>.", otherValue, value));
         Observable<Object> oi = Observable.just(value);
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
@@ -93,7 +93,7 @@ public class TestSubscriberAssertTest {
     public void hasReceivedFirstValue_asserts_whenNotEqual_andSourceObservableEmitsMultiple() {
         Object otherValue = new Object();
         Object value = new Object();
-        expectAssertionErrorWithMessage(String.format("Expected first received onNext events to be: <%s>, but was: <%s>", otherValue, value));
+        expectAssertionErrorWithMessage(String.format("Expected first received onNext event to be: <%s>, but was: <%s>", otherValue, value));
         Observable<Object> oi = Observable.just(value, otherValue);
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
@@ -101,6 +101,73 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(otherValue);
     }
 
+    // Last
+
+    @Test
+    public void hasReceivedLastValue_doesNotAssert_whenSourceObservableEmitsOnceEqual() {
+        Object value = new Object();
+        Observable<Object> oi = Observable.just(value);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValue(value);
+    }
+
+    @Test
+    public void hasReceivedLastValue_doesNotAssert_whenSourceObservableEmitsMultipleLastEqual() {
+        Object value = new Object();
+        Observable<Object> oi = Observable.just(new Object(), value);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValue(value);
+    }
+
+    @Test
+    public void hasReceivedLastValue_asserts_whenSourceObservableEmitsMultipleLastValueNotEqualsOtherEquals() {
+        Object value = new Object();
+        Object otherValue = new Object();
+        expectAssertionErrorWithMessage(String.format("Expected last received onNext event to be: <%s>, but was: <%s>.", otherValue, value));
+        Observable<Object> oi = Observable.just(otherValue, value);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValue(otherValue);
+    }
+
+    @Test
+    public void hasReceivedLastValue_asserts_whenSourceObservableEmitsOnceNotEqual() {
+        Object otherValue = new Object();
+        Object value = new Object();
+        expectAssertionErrorWithMessage(String.format("Expected last received onNext event to be: <%s>, but was: <%s>.", otherValue, value));
+        Observable<Object> oi = Observable.just(value);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValue(otherValue);
+    }
+
+    @Test
+    public void hasReceivedLastValue_asserts_whenSourceObservableIsEmpty() {
+        expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
+        Observable<Object> oi = Observable.empty();
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValue(new Object());
+    }
+
+    @Test
+    public void hasReceivedLastValue_asserts_whenSourceObservableEmitsMultipleOtherEquals() {
+        Object otherValue = new Object();
+        Object value = new Object();
+        expectAssertionErrorWithMessage(String.format("Expected last received onNext event to be: <%s>, but was: <%s>", otherValue, value));
+        Observable<Object> oi = Observable.just(otherValue, value);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValue(otherValue);
+    }
 
     @Test
     public void hasReceivedValues_asserts_whenSourceObservableIsEmpty() {
