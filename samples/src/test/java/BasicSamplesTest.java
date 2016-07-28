@@ -17,9 +17,9 @@ public class BasicSamplesTest {
 
     @Test
     public void testDelay() {
-        // Not an ideal way of testing Observables with concurrency because it will still take 10 seconds!
+        // Not an ideal way of testing Observables with concurrency because it will still take 2 seconds!
         String value = "avalue";
-        Observable<String> delayObservable = Observable.just(value).delay(10, TimeUnit.SECONDS);
+        Observable<String> delayObservable = Observable.just(value).delay(2, TimeUnit.SECONDS);
 
         TestSubscriber<String> ts = TestSubscriber.create();
         delayObservable.subscribe(ts);
