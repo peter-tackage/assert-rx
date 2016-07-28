@@ -248,6 +248,18 @@ public class TestSubscriberAssertTest {
     }
 
     @Test
+    public void hasReceivedFirstValue_asserts_whenNotEqual_andSourceObservableEmitsMultipleAndOtherValuesMatches() {
+        Object value = new Object();
+        Object otherValue = new Object();
+        expectAssertionErrorWithMessage(String.format("Expected first received onNext events to be: <%s>, but was: <%s>.", otherValue, value));
+        Observable<Object> oi = Observable.just(value, otherValue);
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(otherValue);
+    }
+
+    @Test
     public void hasReceivedFirstValue_asserts_whenNotEqual_andSourceObservableEmitsOnce() {
         Object otherValue = new Object();
         Object value = new Object();
@@ -269,7 +281,6 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(new Object());
     }
 
-
     @Test
     public void hasReceivedFirstValue_asserts_whenNotEqual_andSourceObservableEmitsMultiple() {
         Object otherValue = new Object();
@@ -281,6 +292,7 @@ public class TestSubscriberAssertTest {
 
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(otherValue);
     }
+
 
     @Test
     public void hasReceivedValues_asserts_whenSourceObservableIsEmpty() {
