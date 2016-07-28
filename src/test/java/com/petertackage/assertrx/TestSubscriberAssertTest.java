@@ -15,6 +15,7 @@
  */
 package com.petertackage.assertrx;
 
+import org.assertj.core.api.AbstractObjectAssert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,6 +36,8 @@ public class TestSubscriberAssertTest {
     public ExpectedException thrown = ExpectedException.none();
 
     // Higher Order tests - these don't use TestSubscriber assertions.
+
+    // hasReceivedFirstValue
 
     @Test
     public void hasReceivedFirstValue_doesNotAssert_whenSourceObservableEmitsOnceEqual() {
@@ -101,7 +105,7 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValue(otherValue);
     }
 
-    // Last
+    // hasReceivedLastValue
 
     @Test
     public void hasReceivedLastValue_doesNotAssert_whenSourceObservableEmitsOnceEqual() {
@@ -169,6 +173,8 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValue(otherValue);
     }
 
+    // hasReceivedValues
+
     @Test
     public void hasReceivedValues_asserts_whenSourceObservableIsEmpty() {
         expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
@@ -217,6 +223,8 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedValues();
     }
 
+    // hasReceivedValueWhich
+
     @Test
     public void hasReceivedValueWhich_asserts_whenOnNextEventsListIsEmpty() {
         List<Object> values = Collections.emptyList();
@@ -247,6 +255,90 @@ public class TestSubscriberAssertTest {
 
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValueWhich();
     }
+
+    // hasReceivedFirstValueWhich
+
+    @Test
+    public void hasReceivedFirstValueWhich_returnsNonNullAssertionInstance() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Collections.singletonList(new Object()));
+
+        AbstractObjectAssert<?, Object> instance =
+                new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValueWhich();
+
+        assertThat(instance).isNotNull();
+    }
+
+    @Test
+    public void hasReceivedFirstValueWhich_doesNotAssert_whenSingleOnNextEvent() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Collections.singletonList(new Object()));
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValueWhich();
+    }
+
+    @Test
+    public void hasReceivedFirstValueWhich_doesNotAssert_whenMultipleSingleOnNextEvent() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Arrays.asList(new Object(), new Object()));
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValueWhich();
+    }
+
+    @Test
+    public void hasReceivedFirstValueWhich_doesNotAssert_whenMultipleOnNextEvents() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Arrays.asList(new Object(), new Object()));
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedFirstValueWhich();
+    }
+
+    // hasReceivedLastValueWhich
+
+    @Test
+    public void hasReceivedLastValueWhich_returnsNonNullAssertionInstance() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Collections.singletonList(new Object()));
+
+        AbstractObjectAssert<?, Object> instance =
+                new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValueWhich();
+
+        assertThat(instance).isNotNull();
+    }
+
+    @Test
+    public void hasReceivedLastValueWhich_doesNotAssert_whenSingleOnNextEvent() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Collections.singletonList(new Object()));
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValueWhich();
+    }
+
+    @Test
+    public void hasReceivedLastValueWhich_doesNotAssert_whenMultipleSingleOnNextEvent() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Arrays.asList(new Object(), new Object()));
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValueWhich();
+    }
+
+    @Test
+    public void hasReceivedLastValueWhich_doesNotAssert_whenMultipleOnNextEvents() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Arrays.asList(new Object(), new Object()));
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValueWhich();
+    }
+
+    // hasErrorWhich
 
     @Test
     public void hasErrorWhich_asserts_whenErrorEventListIsEmpty() {
@@ -279,7 +371,7 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasErrorWhich();
     }
 
-    private void expectAssertionErrorWithMessage(String message) {
+    private void expectAssertionErrorWithMessage(final String message) {
         thrown.expect(AssertionError.class);
         thrown.expectMessage(message);
     }
