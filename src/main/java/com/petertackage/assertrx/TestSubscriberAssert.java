@@ -108,12 +108,28 @@ public final class TestSubscriberAssert<T> extends AbstractAssert<TestSubscriber
      *
      * @return this {@link TestSubscriberAssert}
      */
-    public TestSubscriberAssert<T> hasReceivedValues() {
+    public TestSubscriberAssert<T> hasReceivedAnyValues() {
         isNotNull();
         List<T> actualEvents = actual.getOnNextEvents();
         assertThat(actualEvents)
                 .overridingErrorMessage("Expected received onNext events not to be empty.")
                 .isNotEmpty();
+        return this;
+    }
+
+    /**
+     * Passes when {@link TestSubscriber} has received a single {@link TestSubscriber#onNext(Object)} events.
+     *
+     * @return this {@link TestSubscriberAssert}
+     */
+    public TestSubscriberAssert<T> hasReceivedAnyValue() {
+        isNotNull();
+        List<T> actualEvents = actual.getOnNextEvents();
+        assertThat(actualEvents)
+                .overridingErrorMessage("Expected received onNext events not to be empty.")
+                .isNotEmpty()
+                .overridingErrorMessage("Expected a single onNext value, but was: <%s>.", actualEvents)
+                .hasSize(1);
         return this;
     }
 

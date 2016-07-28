@@ -173,54 +173,107 @@ public class TestSubscriberAssertTest {
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedLastValue(otherValue);
     }
 
-    // hasReceivedValues
+    // hasReceivedAnyValues
 
     @Test
-    public void hasReceivedValues_asserts_whenSourceObservableIsEmpty() {
+    public void hasReceivedAnyValues_asserts_whenSourceObservableIsEmpty() {
         expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.empty();
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
 
-        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValues();
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedAnyValues();
     }
 
     @Test
-    public void hasReceivedValues_asserts_whenSourceObservableIsError() {
+    public void hasReceivedAnyValues_asserts_whenSourceObservableIsError() {
         expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.error(new Throwable());
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
 
-        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValues();
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedAnyValues();
     }
 
     @Test
-    public void hasReceivedValues_asserts_whenSourceObservableIsNever() {
+    public void hasReceivedAnyValues_asserts_whenSourceObservableIsNever() {
         expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
         Observable<Object> oi = Observable.never();
         TestSubscriber<Object> ts = new TestSubscriber<Object>();
         oi.subscribe(ts);
 
-        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValues();
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedAnyValues();
     }
 
     @Test
-    public void hasReceivedValues_doesNotAssert_whenSourceObservableEmitsOnce() {
+    public void hasReceivedAnyValues_doesNotAssert_whenSourceObservableEmitsOnce() {
         Observable<Integer> oi = Observable.just(1);
         TestSubscriber<Integer> ts = new TestSubscriber<Integer>();
         oi.subscribe(ts);
 
-        new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedValues();
+        new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedAnyValues();
     }
 
     @Test
-    public void hasReceivedValues_doesNotAssert_whenSourceObservableEmitsMultiple() {
-        Observable<Integer> oi = Observable.just(1, 2);
+    public void hasReceivedAnyValues_doesNotAssert_whenSourceObservableEmitsMultiple() {
+        Integer[] values = {1, 2};
+        Observable<Integer> oi = Observable.from(values);
         TestSubscriber<Integer> ts = new TestSubscriber<Integer>();
         oi.subscribe(ts);
 
-        new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedValues();
+        new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedAnyValues();
+    }
+
+    // hasReceivedAnyValue
+
+    @Test
+    public void hasReceivedAnyValue_asserts_whenSourceObservableIsEmpty() {
+        expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
+        Observable<Object> oi = Observable.empty();
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedAnyValue();
+    }
+
+    @Test
+    public void hasReceivedAnyValue_asserts_whenSourceObservableIsError() {
+        expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
+        Observable<Object> oi = Observable.error(new Throwable());
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedAnyValue();
+    }
+
+    @Test
+    public void hasReceivedAnyValue_asserts_whenSourceObservableIsNever() {
+        expectAssertionErrorWithMessage("Expected received onNext events not to be empty.");
+        Observable<Object> oi = Observable.never();
+        TestSubscriber<Object> ts = new TestSubscriber<Object>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedAnyValue();
+    }
+
+    @Test
+    public void hasReceivedAnyValue_doesNotAssert_whenSourceObservableEmitsOnce() {
+        Observable<Integer> oi = Observable.just(1);
+        TestSubscriber<Integer> ts = new TestSubscriber<Integer>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedAnyValue();
+    }
+
+    @Test
+    public void hasReceivedAnyValue_asserts_whenSourceObservableEmitsMultiple() {
+        List<Integer> values = Arrays.asList(1, 2);
+        expectAssertionErrorWithMessage(String.format("Expected a single onNext value, but was: <%s>.", values));
+        Observable<Integer> oi = Observable.from(values);
+        TestSubscriber<Integer> ts = new TestSubscriber<Integer>();
+        oi.subscribe(ts);
+
+        new TestSubscriberAssert<Integer>(ts, TestSubscriberAssert.class).hasReceivedAnyValue();
     }
 
     // hasReceivedValueWhich
