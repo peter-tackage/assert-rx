@@ -15,6 +15,7 @@
  */
 package com.petertackage.assertrx;
 
+import org.assertj.core.api.AbstractListAssert;
 import org.assertj.core.api.AbstractObjectAssert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -307,6 +308,47 @@ public class TestSubscriberAssertTest {
         when(ts.getOnNextEvents()).thenReturn(Collections.singletonList(new Object()));
 
         new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValueWhich();
+    }
+
+    // hasReceivedValuesWhich
+
+    @Test
+    public void hasReceivedValuesWhich_returnsNonNullInstance_whenOnNextEventsListIsEmpty() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Collections.emptyList());
+
+        AbstractListAssert<?, ? extends List<?>, Object> instance =
+                new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValuesWhich();
+
+        assertThat(instance).isNotNull();
+    }
+
+    @Test
+    public void hasReceivedValuesWhich_doesNotAssert_whenOnNextEventsListIsEmpty() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Collections.emptyList());
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValuesWhich();
+    }
+
+    @Test
+    public void hasReceivedValuesWhich_doesNotAssert_whenMultipleOnNextEvents() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Arrays.asList(new Object(), new Object()));
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValuesWhich();
+    }
+
+    @Test
+    public void hasReceivedValuesWhich_doesNotAssert_whenSingleOnNextEvent() {
+        //noinspection unchecked
+        TestSubscriber<Object> ts = mock(TestSubscriber.class);
+        when(ts.getOnNextEvents()).thenReturn(Collections.singletonList(new Object()));
+
+        new TestSubscriberAssert<Object>(ts, TestSubscriberAssert.class).hasReceivedValuesWhich();
     }
 
     // hasReceivedFirstValueWhich
