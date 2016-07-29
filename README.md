@@ -53,12 +53,23 @@ Assert that the subscriber received any single onNext value:
 
 ```java
     assertThat(ts).hasReceivedAnyValue();
+
 ```
 
-Or assert that the subscriber has received one or more onNext values:
+Assert that the subscriber has received one or more onNext values:
 
 ```java
     assertThat(ts).hasReceivedAnyValues();
+```
+
+or assert the first or last received onNext values:
+
+```java
+    assertThat(ts).hasReceivedFirstValue("the first value");
+```
+
+```java
+    assertThat(ts).hasReceivedLastValue("the last value");
 ```
 
 Assert conditions for single onNext events (currently only as `Object` instances):
@@ -66,16 +77,6 @@ Assert conditions for single onNext events (currently only as `Object` instances
 ```java
  assertThat(ts).hasReceivedValueWhich()
                .is(notEmptyOrNull());
-```
-
-Assert the first or last received onNext values:
-
-```java
-    assertThat(ts).hasReceivedFirstValue(someObject);
-```
-
-```java
-    assertThat(ts).hasReceivedLastValue(someObject);
 ```
 
 ```java
