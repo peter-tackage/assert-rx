@@ -21,9 +21,9 @@ Typically, to test the behavior of a completing, filtering `Observable`, you wou
 This library makes this a little more readable by allowing you to express assertions in a fluent style:
 
  ```java
-     assertThat(ts).hasNoErrors()
-                   .hasReceivedValue("someValue")
-                   .hasCompleted();
+    assertThat(ts).hasNoErrors()
+                  .hasReceivedValue("someValue")
+                  .hasCompleted();
  ```
 
 Other common assertion scenarios, include:
@@ -76,7 +76,7 @@ Assert conditions for single onNext events (currently only as `Object` instances
 
 ```java
     assertThat(ts).hasReceivedValueWhich()
-               .is(notEmptyOrNull());
+                  .is(notEmptyOrNull());
 ```
 
 ```java
@@ -85,24 +85,24 @@ Assert conditions for single onNext events (currently only as `Object` instances
 ```
 
 ```java
-   assertThat(ts).hasReceivedLastValueWhich()
-                 .is(notEmptyOrNull());
+    assertThat(ts).hasReceivedLastValueWhich()
+                  .is(notEmptyOrNull());
 ```
 
 Similarly assert conditions for onError events (currently only as `Throwable` instances):
 
 ```java
     assertThat(ts).hasErrorWhich()
-               .hasMessageStartingWith("A terrible error");
+                  .hasMessageStartingWith("A terrible error");
 ```
 
 Handle concurrency, by ensuring that the `TestSubscriber` awaits a terminal event before asserting:
 
 ```java
     assertThat(ts).afterTerminalEvent()
-               .hasNoErrors()
-               .hasReceivedValue("someValue")
-               .hasCompleted();
+                  .hasNoErrors()
+                  .hasReceivedValue("someValue")
+                  .hasCompleted();
 ```
 
 Download
