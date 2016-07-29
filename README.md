@@ -75,7 +75,7 @@ or assert the first or last received onNext values:
 Assert conditions for single onNext events (currently only as `Object` instances):
 
 ```java
- assertThat(ts).hasReceivedValueWhich()
+    assertThat(ts).hasReceivedValueWhich()
                .is(notEmptyOrNull());
 ```
 
@@ -92,7 +92,7 @@ Assert conditions for single onNext events (currently only as `Object` instances
 Similarly assert conditions for onError events (currently only as `Throwable` instances):
 
 ```java
- assertThat(ts).hasErrorWhich()
+    assertThat(ts).hasErrorWhich()
                .hasMessageStartingWith("A terrible error");
 ```
 
