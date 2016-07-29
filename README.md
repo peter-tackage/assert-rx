@@ -99,7 +99,7 @@ Similarly assert conditions for onError events (currently only as `Throwable` in
 Handle concurrency, by ensuring that the `TestSubscriber` awaits a terminal event before asserting:
 
 ```java
- assertThat(ts).afterTerminalEvent()
+    assertThat(ts).afterTerminalEvent()
                .hasNoErrors()
                .hasReceivedValue("someValue")
                .hasCompleted();
