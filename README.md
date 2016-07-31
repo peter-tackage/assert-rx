@@ -33,7 +33,6 @@ Assert that the subscriber received any single onNext value:
 
 ```
     assertThat(ts).hasReceivedAnyValue();
-
 ```
 
 Assert that the subscriber has received one or more onNext values:
