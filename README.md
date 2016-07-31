@@ -48,8 +48,21 @@ Multiple, in-order values:
     assertThat(ts).hasReceivedValues("a", "b", "c");
 ```
 
+Assert conditions for single onNext events (currently only as `Object` instances):
 
-or assert the first or last received onNext values:
+```
+    assertThat(ts).hasReceivedValueWhich()
+                  .is(notEmptyOrNull());
+```
+
+Assert conditions for the entire onNext value sequence:
+
+```
+    assertThat(ts).hasReceivedValuesWhich()
+                  .doesNotContain(someObject);
+```
+
+Assert the first or last received onNext values:
 
 ```
     assertThat(ts).hasReceivedFirstValue("the first value");
@@ -57,20 +70,6 @@ or assert the first or last received onNext values:
 
 ```
     assertThat(ts).hasReceivedLastValue("the last value");
-```
-
-Assert conditions for single onNext events (currently only as `Object` instances):
-
-Assert conditions for the onNext value sequence:
-
-```
-    assertThat(ts).hasReceivedValuesWhich()
-                  .doesNotContain(someObject);
-```
-
-```
-    assertThat(ts).hasReceivedValueWhich()
-                  .is(notEmptyOrNull());
 ```
 
 ```
