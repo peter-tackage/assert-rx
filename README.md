@@ -5,8 +5,7 @@ A Java fluent assertion wrapper to improve readability of [RxJava's TestSubscrib
 
 [![Build Status](https://travis-ci.org/peter-tackage/assert-rx.svg?branch=master)](https://travis-ci.org/peter-tackage/assert-rx)
 
-Usage
------
+# Usage
 
 Typically, to test the behavior of a completing, filtering `Observable`, you would write:
 
@@ -26,28 +25,9 @@ This library makes this a little more readable by allowing you to express assert
                   .hasCompleted();
  ```
 
-Other common assertion scenarios, include:
+## Expanded OnNext Assertions
 
-Multiple, in-order values:
-
-```
-    assertThat(ts).hasNoErrors()
-                  .hasReceivedValues("a", "b", "c")
-                  .hasCompleted();
-```
-
-Received an `IOException` instance in `onError`:
-
-```
-    assertThat(ts).hasError(IOException.class);
-```
-
-Assert conditions for the onNext value sequence:
-
-```
-    assertThat(ts).hasReceivedValuesWhich()
-                  .doesNotContain(someObject);
-```
+In addition to the assertions provided by `TestSubscriber`, this library also provides additional assertions, such as:
 
 Assert that the subscriber received any single onNext value:
 
@@ -62,6 +42,13 @@ Assert that the subscriber has received one or more onNext values:
     assertThat(ts).hasReceivedAnyValues();
 ```
 
+Multiple, in-order values:
+
+```
+    assertThat(ts).hasReceivedValues("a", "b", "c");
+```
+
+
 or assert the first or last received onNext values:
 
 ```
@@ -73,6 +60,13 @@ or assert the first or last received onNext values:
 ```
 
 Assert conditions for single onNext events (currently only as `Object` instances):
+
+Assert conditions for the onNext value sequence:
+
+```
+    assertThat(ts).hasReceivedValuesWhich()
+                  .doesNotContain(someObject);
+```
 
 ```
     assertThat(ts).hasReceivedValueWhich()
@@ -89,12 +83,23 @@ Assert conditions for single onNext events (currently only as `Object` instances
                   .is(notEmptyOrNull());
 ```
 
-Similarly assert conditions for onError events (currently only as `Throwable` instances):
+## Expanded OnError Assertions
+
+Received an `IOException` instance in `onError`:
+
+```
+    assertThat(ts).hasError(IOException.class);
+```
+
+
+Assert conditions for onError events (currently only as `Throwable` instances):
 
 ```
     assertThat(ts).hasErrorWhich()
                   .hasMessageStartingWith("A terrible error");
 ```
+
+## Other Assertions
 
 Handle concurrency, by ensuring that the `TestSubscriber` awaits a terminal event before asserting:
 
