@@ -9,7 +9,7 @@ A Java fluent assertion wrapper to improve readability of [RxJava's TestSubscrib
 
 Typically, to test the behavior of a completing, filtering `Observable`, you would write:
 
- ```
+ ```java
     TestSubscriber<String> ts = ...... // subscribe to a filtered Observable
 
     ts.assertNoErrors();
@@ -19,7 +19,7 @@ Typically, to test the behavior of a completing, filtering `Observable`, you wou
 
 This library makes this a little more readable by allowing you to express assertions in a fluent style:
 
- ```
+ ```java
     assertThat(ts).hasNoErrors()
                   .hasReceivedValue("someValue")
                   .hasCompleted();
@@ -31,52 +31,52 @@ In addition to the assertions provided by `TestSubscriber`, this library also pr
 
 Assert that the subscriber received any single onNext value:
 
-```
+```java
     assertThat(ts).hasReceivedAnyValue();
 ```
 
 Assert that the subscriber has received one or more onNext values:
 
-```
+```java
     assertThat(ts).hasReceivedAnyValues();
 ```
 
 Multiple, in-order values:
 
-```
+```java
     assertThat(ts).hasReceivedValues("a", "b", "c");
 ```
 
 Assert conditions for single onNext events (currently only as `Object` instances):
 
-```
+```java
     assertThat(ts).hasReceivedValueWhich()
                   .is(notEmptyOrNull());
 ```
 
 Assert conditions for the entire onNext value sequence:
 
-```
+```java
     assertThat(ts).hasReceivedValuesWhich()
                   .doesNotContain(someObject);
 ```
 
 Assert the first or last received onNext values:
 
-```
+```java
     assertThat(ts).hasReceivedFirstValue("the first value");
 ```
 
-```
+```java
     assertThat(ts).hasReceivedLastValue("the last value");
 ```
 
-```
+```java
     assertThat(ts).hasReceivedFirstValueWhich()
                   .is(notEmptyOrNull());
 ```
 
-```
+```java
     assertThat(ts).hasReceivedLastValueWhich()
                   .is(notEmptyOrNull());
 ```
@@ -85,14 +85,14 @@ Assert the first or last received onNext values:
 
 Received an `IOException` instance in `onError`:
 
-```
+```java
     assertThat(ts).hasError(IOException.class);
 ```
 
 
 Assert conditions for onError events (currently only as `Throwable` instances):
 
-```
+```java
     assertThat(ts).hasErrorWhich()
                   .hasMessageStartingWith("A terrible error");
 ```
@@ -101,7 +101,7 @@ Assert conditions for onError events (currently only as `Throwable` instances):
 
 Handle concurrency, by ensuring that the `TestSubscriber` awaits a terminal event before asserting:
 
-```
+```java
     assertThat(ts).afterTerminalEvent()
                   .hasNoErrors()
                   .hasReceivedValue("someValue")
