@@ -12,7 +12,7 @@ Although `TestSubscriber` provides some very handy assertions to test your Obser
      TestSubscriber<String> ts = ...... // subscribe to your Observable with TestSubscriber
 
      ts.assertNoErrors();
-     List<String> values = ts.getValues();
+     List<String> values = ts.getOnNextEvents();
      assertThat(values.get(values.size() - 1)).isEqualTo("expectedValue");
   ```
 
