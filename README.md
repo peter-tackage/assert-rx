@@ -22,7 +22,7 @@ This library makes this more readable by allowing you to express assertions in a
     TestSubscriber<String> ts = ...... // subscribe to your Observable with TestSubscriber
 
     assertThat(ts).hasNoErrors()
-                  .hasLastReceivedValue("expectedValue");
+                  .hasReceivedLastValue("expectedValue");
  ```
 
 In addition to this wrapping, it provides some higher order assertions to allow for testing of specific conditions.
