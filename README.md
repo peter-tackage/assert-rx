@@ -35,11 +35,9 @@ Where `notEmptyOrNull` is a reusable, [AssertJ Condition](https://joel-costiglio
 
 # Usage
 
-Here are a few examples of the assertion performed using Assert-Rx.
+Here are a few examples of the assertions performed using Assert-Rx.
 
 ## OnNext Assertions
-
-In addition to the assertions provided by `TestSubscriber`, this library also provides additional assertions, such as:
 
 Assert that the subscriber received any single onNext value:
 
