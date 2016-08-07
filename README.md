@@ -1,31 +1,43 @@
 Assert-Rx
 =========
 
-A Java fluent assertion wrapper to improve readability of [RxJava's TestSubscriber](http://reactivex.io/RxJava/javadoc/rx/observers/TestSubscriber.html) assertions.
+A fluent assertion wrapper to simplify and improve usability of [RxJava's TestSubscriber](http://reactivex.io/RxJava/javadoc/rx/observers/TestSubscriber.html) assertions, built upon the [AssertJ](https://joel-costigliola.github.io/assertj/) framework.
 
 [![Build Status](https://travis-ci.org/peter-tackage/assert-rx.svg?branch=master)](https://travis-ci.org/peter-tackage/assert-rx)
+# Purpose
+
+Although `TestSubscriber` provides some very handy assertions to test your Observables, it  can be a bit tedious and verbose to use. For example, to test the last value in a sequence you would typically write:
+
+  ```java
+     TestSubscriber<String> ts = ...... // subscribe to your Observable with TestSubscriber
+
+     ts.assertNoErrors();
+     List<String> values = ts.getValues();
+     assertThat(values.get(values.size() - 1)).isEqualTo("expectedValue");
+  ```
+
+This library makes this more readable by allowing you to express assertions in a fluent style:
+
+ ```java
+    TestSubscriber<String> ts = ...... // subscribe to your Observable with TestSubscriber
+
+    assertThat(ts).hasNoErrors()
+                  .hasLastReceivedValue("expectedValue");
+ ```
+
+In addition to this wrapping, it provides some higher order assertions to allow for testing of specific conditions.
+
+ ```java
+     assertThat(ts).hasReceivedFirstValueWhich()
+                   .is(notEmptyOrNull());
+ ```
+Where `notEmptyOrNull` is a reusable, AssertJ `Condition`.
 
 # Usage
 
-Typically, to test the behavior of a completing, filtering `Observable`, you would write:
+Here are a few examples of the assertion performed using Assert-Rx.
 
- ```java
-    TestSubscriber<String> ts = ...... // subscribe to a filtered Observable
-
-    ts.assertNoErrors();
-    ts.assertValue("someValue");
-    ts.assertCompleted();
- ```
-
-This library makes this a little more readable by allowing you to express assertions in a fluent style:
-
- ```java
-    assertThat(ts).hasNoErrors()
-                  .hasReceivedValue("someValue")
-                  .hasCompleted();
- ```
-
-## Expanded OnNext Assertions
+## OnNext Assertions
 
 In addition to the assertions provided by `TestSubscriber`, this library also provides additional assertions, such as:
 
@@ -81,7 +93,7 @@ Assert the first or last received onNext values:
                   .is(notEmptyOrNull());
 ```
 
-## Expanded OnError Assertions
+## OnError Assertions
 
 Received an `IOException` instance in `onError`:
 
@@ -97,7 +109,7 @@ Assert conditions for onError events (currently only as `Throwable` instances):
                   .hasMessageStartingWith("A terrible error");
 ```
 
-## Other Assertions
+## Concurrency Handling
 
 Handle concurrency, by ensuring that the `TestSubscriber` awaits a terminal event before asserting:
 
