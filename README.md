@@ -31,7 +31,7 @@ In addition to this wrapping, it provides some higher order assertions to allow 
      assertThat(ts).hasReceivedFirstValueWhich()
                    .is(notEmptyOrNull());
  ```
-Where `notEmptyOrNull` is a reusable, AssertJ `Condition`.
+Where `notEmptyOrNull` is a reusable, [AssertJ Condition](https://joel-costigliola.github.io/assertj/assertj-core-conditions.html).
 
 # Usage
 
