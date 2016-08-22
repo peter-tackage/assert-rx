@@ -4,6 +4,7 @@ Assert-Rx
 A fluent assertion wrapper to simplify and improve usability of [RxJava's TestSubscriber](http://reactivex.io/RxJava/javadoc/rx/observers/TestSubscriber.html) assertions, built upon the [AssertJ](https://joel-costigliola.github.io/assertj/) framework.
 
 [![Build Status](https://travis-ci.org/peter-tackage/assert-rx.svg?branch=master)](https://travis-ci.org/peter-tackage/assert-rx)
+[![Jitpack](https://jitpack.io/v/peter-tackage/assert-rx.svg)](https://jitpack.io/#peter-tackage/assert-rx)
 # Purpose
 
 Although `TestSubscriber` provides some very handy assertions to test your Observables, it  can be a bit tedious and verbose to use. For example, to test the last value in a sequence you would typically write:
