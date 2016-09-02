@@ -5,6 +5,7 @@ A fluent assertion wrapper to simplify and improve usability of [RxJava's TestSu
 
 [![Build Status](https://travis-ci.org/peter-tackage/assert-rx.svg?branch=master)](https://travis-ci.org/peter-tackage/assert-rx)
 [![Jitpack](https://jitpack.io/v/peter-tackage/assert-rx.svg)](https://jitpack.io/#peter-tackage/assert-rx)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-assert--rx-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4069)
 # Purpose
 
 Although `TestSubscriber` provides some very handy assertions to test your Observables, it  can be a bit tedious and verbose to use. For example, to test the last value in a sequence you would typically write:
