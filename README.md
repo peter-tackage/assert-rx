@@ -123,7 +123,7 @@ Handle concurrency, by ensuring that the `TestSubscriber` awaits a terminal even
 Download
 --------
 
-Releases are available as dependencies via [Jitpack](https://jitpack.io/#peter-tackage/assert-rx/0.9.7).
+Releases are available as dependencies via [Jitpack](https://jitpack.io/#peter-tackage/assert-rx/0.9.8).
 
 Implementation
 --------------
