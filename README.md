@@ -3,7 +3,11 @@ Assert-Rx
 
 DEPRECATED!
 
-As of RxJava 1.3, [fluent assertions will be part of the RxJava 1.x library](https://github.com/ReactiveX/RxJava/pull/4777/). So if you are considering using this library, then don't. You should instead use the official equivalent. The official assertions are assertion library agnostic and use the same API as RxJava 2.x, which should help you make the transition should you chose to. Every library has its lifespan and this one's has ended. Thank you for your interest!
+As of RxJava 1.3,[fluent assertions will be part of the RxJava 1.x library](https://github.com/ReactiveX/RxJava/pull/4777/). You should use the official equivalent instead. The official assertions are assertion library agnostic and use the same API as RxJava 2.x, which should help you make the transition should you chose to. 
+
+Only use this library if somehow you cannot to update to RxJava 1.3. 
+
+Every library has its lifespan and this one's has ended. Thank you for your interest!
 
 A fluent assertion wrapper to simplify and improve usability of [RxJava's TestSubscriber](http://reactivex.io/RxJava/javadoc/rx/observers/TestSubscriber.html) assertions, built upon the [AssertJ](https://joel-costigliola.github.io/assertj/) framework.
 
